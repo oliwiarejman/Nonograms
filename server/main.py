@@ -37,7 +37,7 @@ HTML_TEMPLATE = '''
     </style>
 </head>
 <body>
-    <h1>Input data in nonogram</h1>
+    <h1>Nonogram</h1>
     <form method="POST">
         <table>
             <thead>
@@ -57,7 +57,7 @@ HTML_TEMPLATE = '''
                             <input type="text" name="row{{ row }}" placeholder="Row {{ row+1 }}" value="{{ request.form.get('row' + row|string, '') }}">
                         </th>
                         {% for col in range(5) %}
-                            <td></td>
+                            <td class="{{ 'black' if grid and grid[row][col] == 1 else 'white' if grid and grid[row][col] == 0 else '' }}"></td>
                         {% endfor %}
                     </tr>
                 {% endfor %}
@@ -66,25 +66,6 @@ HTML_TEMPLATE = '''
         <br>
         <button type="submit">Submit</button>
     </form>
-
-    {% if grid %}
-        <h2>Result:</h2>
-        <table>
-            <tbody>
-                {% for row in grid %}
-                    <tr>
-                        {% for cell in row %}
-                            {% if cell == 1 %}
-                                <td class="black"></td>
-                            {% else %}
-                                <td class="white"></td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
 </body>
 </html>
 '''
